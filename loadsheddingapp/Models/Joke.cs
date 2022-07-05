@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace loadsheddingapp.Models
 {
-    public class Jokes
+    public class Joke
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,11 +16,11 @@ namespace loadsheddingapp.Models
         public DateTime TimeCreated { get; set; }
         public bool IsApproved { get; set; }
 
-        public Jokes()
+        public Joke()
         {
         }
 
-        public Jokes(int id, string username, string body, DateTime timeCreated, bool isApproved)
+        public Joke(int id, string username, string body, DateTime timeCreated, bool isApproved)
         {
             Id = id;
             Username = username;
