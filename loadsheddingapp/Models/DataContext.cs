@@ -8,6 +8,6 @@ namespace loadsheddingapp.Models
         {
         }
 
-        public DbSet<Jokes> Jokes { get; set; }
+        public DbSet<Joke> Jokes { get; set; }
     }
 }
