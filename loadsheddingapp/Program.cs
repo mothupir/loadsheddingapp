@@ -1,10 +1,12 @@
 using loadsheddingapp.Models;
+using loadsheddingapp.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IJokeRepository, JokeRepository>();
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
