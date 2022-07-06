@@ -26,9 +26,18 @@ namespace loadsheddingapp.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult CreateJoke()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateJoke(string joke)
+        {
+            Joke _joke = new Joke("anon", joke, DateTime.Now, true);
+            _repository.AddAsync(_joke);
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
