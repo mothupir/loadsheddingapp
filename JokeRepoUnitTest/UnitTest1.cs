@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using loadsheddingapp.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace JokeRepoUnitTest
 {
@@ -18,10 +20,14 @@ namespace JokeRepoUnitTest
         [SetUp]
         public void Setup()
         {
-            dataContext = new DataContext(
-                new DbContextOptionsBuilder<DataContext>()
-                .UseSqlServer(connectionString)
-                .Options);
+
+            var builder = new ConfigurationBuilder();
+
+            builder.AddInMemoryCollection(new Dictionary<string, string>
+                {
+                     { "DatabaseSecretID", "dbKey" }
+                });
+            dataContext = new DataContext(new SecretsManagerService(), builder.Build());
             jokeRepo = new JokeRepository(dataContext);
         }
 
@@ -146,5 +152,6 @@ namespace JokeRepoUnitTest
 
             Assert.Pass($"Jokes all approved, List size = {approvedJokes?.Count}");
         }
+    }
     }
 }
