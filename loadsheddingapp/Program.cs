@@ -1,4 +1,6 @@
+using loadsheddingapp.Services;
 using loadsheddingapp.Models;
+using loadsheddingapp.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,10 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<DataContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DataContext"));
-});
+
+builder.Services.AddDbContext<DataContext>();
+
+
+builder.Services.AddSingleton<ISecretsManagerService, SecretsManagerService>();
+
 
 var app = builder.Build();
 
@@ -31,5 +35,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 
 app.Run();
