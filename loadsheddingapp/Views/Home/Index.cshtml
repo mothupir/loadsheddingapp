@@ -15,15 +15,18 @@
     @if(Model.Count > 0)
     {
         <div class="row">
-            <div class="col-12 overflow-scroll">
+            <div class="col-12 vh-100 overflow-auto border border-1">
                 @foreach(var joke in Model)
                 {
-                    <div class="row my-1">
+                    <div class="row my-2">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-body text-start">
-                                    <b>@joke.Username</b>
+                                <div class="card-body text-wrap text-start text-capitalize">
+                                    <i>Creator: <b>@joke.Username</b></i>
                                     <p>@joke.Body</p>
+                                    <div class="row text-end">
+                                        <i class="text-sm-end text-muted">Time: @joke.TimeCreated</i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
