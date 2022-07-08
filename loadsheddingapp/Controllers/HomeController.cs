@@ -35,8 +35,14 @@ namespace loadsheddingapp.Controllers
         [HttpPost]
         public IActionResult CreateJoke(string joke)
         {
-            Joke _joke = new Joke("anon", joke, DateTime.Now, true);
-            _repository.AddAsync(_joke);
+            Task<Joke> task = _repository.AddAsync(new Joke("anon", joke, DateTime.Now, true));
+            task.Wait();
+            Joke _joke = task.Result;
+
+            if (_joke == null) {
+                throw new Exception();
+            }
+
             return RedirectToAction("Index");
         }
 
