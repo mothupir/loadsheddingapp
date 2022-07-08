@@ -1,5 +1,6 @@
 ﻿using loadsheddingapp.Models;
 using loadsheddingapp.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -45,6 +46,12 @@ namespace loadsheddingapp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "admin")]
+        public IActionResult admin() {
+            return new ObjectResult("hello world");
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -2,6 +2,8 @@ using loadsheddingapp.Services;
 using loadsheddingapp.Models;
 using loadsheddingapp.Repository;
 using Microsoft.EntityFrameworkCore;
+using Auth0.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,22 @@ builder.Services.AddScoped<IJokeRepository, JokeRepository>();
 builder.Services.AddDbContext<DataContext>();
 
 
+
+
+
+
 builder.Services.AddSingleton<ISecretsManagerService, SecretsManagerService>();
+
+
+
+builder.Services
+    .AddAuth0WebAppAuthentication(options => {
+        options.Domain = builder.Configuration["Auth0:Domain"];
+        options.ClientId = builder.Configuration["Auth0:ClientId"];
+    });
+
+
+
 
 
 var app = builder.Build();
@@ -31,12 +48,29 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+/*
+app.MapControllerRoute(
+    name: "Login",
+    pattern: "{controller=Login}/{action=Index}/{id?}");
+
+
+
+app.MapControllerRoute(
+    name: "Login",
+    pattern: "{controller=Logout}/{action=Index}/{id?}");
+*/
+
+
+app.MapControllerRoute(
+    name: "Login",
+    pattern: "{controller=Account}/{action=Index}/{id?}");
 
 
 app.Run();
