@@ -44,5 +44,33 @@ namespace loadsheddingapp.Repository
             await _dataContext.SaveChangesAsync();
             return foundJoke;
         }
+
+        public async Task<IEnumerable<Joke>> GetAllUnApproved()
+        {
+            return await _dataContext.Jokes.Where(x => !x.IsApproved).ToListAsync();
+        }
+
+        public  async void ApproveJoke(int id)
+        {
+            var foundJoke = await _dataContext.Jokes.FindAsync(id);
+            if (foundJoke == null)
+            {
+                return;
+            }
+            foundJoke.IsApproved = false;
+            await _dataContext.SaveChangesAsync();
+        }
+
+        public async void UnapproveJoke(int id)
+        {
+            var foundJoke = await _dataContext.Jokes.FindAsync(id);
+            if (foundJoke == null)
+            {
+                return;
+            }
+
+            _dataContext.Jokes.Remove(foundJoke);
+            await _dataContext.SaveChangesAsync();
+        }
     }
 }
