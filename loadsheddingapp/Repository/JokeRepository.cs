@@ -52,24 +52,31 @@ namespace loadsheddingapp.Repository
 
         public  async void ApproveJoke(int id)
         {
-            var foundJoke = await _dataContext.Jokes.FindAsync(id);
+            var foundJoke = await _dataContext.Jokes.Where(x => x.Id == id).ToListAsync();
             if (foundJoke == null)
             {
                 return;
             }
-            foundJoke.IsApproved = false;
+            foreach (var joke in foundJoke)
+            {
+                joke.IsApproved = true;
+            }
             await _dataContext.SaveChangesAsync();
         }
 
         public async void UnapproveJoke(int id)
         {
-            var foundJoke = await _dataContext.Jokes.FindAsync(id);
+
+            var foundJoke = await _dataContext.Jokes.Where(x => x.Id == id).ToListAsync();
             if (foundJoke == null)
             {
                 return;
             }
+            foreach (var joke in foundJoke)
+            {
+                _dataContext.Jokes.Remove(joke);
+            }
 
-            _dataContext.Jokes.Remove(foundJoke);
             await _dataContext.SaveChangesAsync();
         }
     }
