@@ -20,9 +20,8 @@ namespace loadsheddingapp.Models
         {
         }
 
-        public Joke(int id, string username, string body, DateTime timeCreated, bool isApproved)
+        public Joke(string username, string body, DateTime timeCreated, bool isApproved)
         {
-            Id = id;
             Username = username;
             Body = body;
             TimeCreated = timeCreated;

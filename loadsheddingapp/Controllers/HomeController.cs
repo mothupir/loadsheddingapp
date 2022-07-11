@@ -27,6 +27,26 @@ namespace loadsheddingapp.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult CreateJoke()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateJoke(string joke)
+        {
+            var userName = "anon";
+
+            if (userName == null || String.IsNullOrEmpty(joke)) {
+                return RedirectToAction("Error");
+            }
+
+            Task<Joke> task = _repository.AddAsync(new Joke(userName, joke, DateTime.Now, false));
+            task.Wait();
+
+            return RedirectToAction("Index");
+        }
 
         [Authorize(Roles = "admin")]
         public IActionResult admin() {
