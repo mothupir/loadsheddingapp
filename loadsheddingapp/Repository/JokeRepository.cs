@@ -20,7 +20,7 @@ namespace loadsheddingapp.Repository
 
         public async Task<IEnumerable<Joke>> GetAllApproved()
         {
-            return await _dataContext.Jokes.Where(x => x.IsApproved).ToListAsync();
+            return await _dataContext.Jokes.Where(x => x.IsApproved).OrderByDescending(x => x.TimeCreated).ToListAsync();
         }
 
         public async Task<IEnumerable<Joke>> GetAllAsync()

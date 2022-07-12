@@ -16,13 +16,15 @@ namespace loadsheddingapp.Controllers
             _logger = logger;
             _repository = repository;
         }
-
+        
         public IActionResult Index()
         {
             return View(_repository.GetAllApproved().Result);
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        [Authorize]
+        public IActionResult CreateJoke()
         {
             return View();
         }
@@ -49,6 +51,25 @@ namespace loadsheddingapp.Controllers
             return View("Admin", _repository.GetAllUnApproved().Result);
         }
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult CreateJoke(string joke)
+        {
+         
+
+            var userName = User.Claims.FirstOrDefault(c => c.Type == "http://username/name")?.Value;
+
+            if (userName == null || String.IsNullOrEmpty(joke)) {
+                return RedirectToAction("Error");
+            }
+
+            Task<Joke> task = _repository.AddAsync(new Joke(userName, joke, DateTime.Now, false));
+            task.Wait();
+
+            return RedirectToAction("Index");
+        }
+
+    
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

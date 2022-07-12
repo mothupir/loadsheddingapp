@@ -10,7 +10,7 @@
      @if (User.Identity.IsAuthenticated && !User.IsInRole("admin")){
     <div class="row mb-2 justify-content-end">
         <div class="col-4">
-            <button type="button" class="btn btn-secondary w-100">Add Joke</button>
+            <a class="btn btn-secondary w-100" asp-area="" asp-controller="Home" asp-action="CreateJoke">Add Joke</a>
         </div>
     </div>
      }
@@ -22,9 +22,9 @@
                 {
                     <div class="row my-2">
                         <div class="col-12">
-                            <div class="card">
-                                <div class="card-body text-wrap text-start text-capitalize">
-                                    <i>Creator: <b>@joke.Username</b></i>
+                            <div class="card bg-light">
+                                <div class="card-body text-wrap text-start">
+                                    <i class=" text-capitalize">Creator: <b>@joke.Username</b></i>
                                     <p>@joke.Body</p>
                                     <div class="row text-end">
                                         <i class="text-sm-end text-muted">Time: @joke.TimeCreated</i>
@@ -41,10 +41,10 @@
         <h4 class="display-6">No Jokes Found!</h4>
         @if (User.Identity.IsAuthenticated && !User.IsInRole("admin"))
         {
-            <div class="row justify-content-center">
+            <div class="row mb-2 justify-content-end">
                 <div class="col-4">
-                    <button type="button" class="btn w-100">Add Joke</button>
-                </div> 
+                    <a class="btn btn-secondary w-100" asp-area="" asp-controller="Home" asp-action="CreateJoke">Add Joke</a>
+                </div>
             </div>
         }
     }
