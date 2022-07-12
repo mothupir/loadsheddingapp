@@ -16,27 +16,24 @@ namespace loadsheddingapp.Controllers
             _logger = logger;
             _repository = repository;
         }
-
+        
         public IActionResult Index()
         {
             return View(_repository.GetAllApproved().Result);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [HttpGet]
+        [Authorize(Roles = "user")]
         public IActionResult CreateJoke()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "user")]
         public IActionResult CreateJoke(string joke)
         {
-            var userName = "anon";
+            var userName = User.Claims.FirstOrDefault(c => c.Type == "http://username/name")?.Value;
 
             if (userName == null || String.IsNullOrEmpty(joke)) {
                 return RedirectToAction("Error");
@@ -48,11 +45,7 @@ namespace loadsheddingapp.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "admin")]
-        public IActionResult admin() {
-            return new ObjectResult("hello world");
-        }
-
+    
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
