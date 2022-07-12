@@ -23,16 +23,18 @@ namespace loadsheddingapp.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "user")]
+        [Authorize]
         public IActionResult CreateJoke()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "user")]
+        [Authorize]
         public IActionResult CreateJoke(string joke)
         {
+         
+
             var userName = User.Claims.FirstOrDefault(c => c.Type == "http://username/name")?.Value;
 
             if (userName == null || String.IsNullOrEmpty(joke)) {

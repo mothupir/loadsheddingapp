@@ -22,6 +22,7 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddSingleton<ISecretsManagerService, SecretsManagerService>();
 
 
+builder.Logging.AddAWSProvider();
 
 builder.Services
     .AddAuth0WebAppAuthentication(options => {
