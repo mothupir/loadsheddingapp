@@ -50,9 +50,9 @@ namespace loadsheddingapp.Repository
             return await _dataContext.Jokes.Where(x => !x.IsApproved).ToListAsync();
         }
 
-        public  async void ApproveJoke(int id)
+        public void ApproveJoke(int id)
         {
-            var foundJoke = await _dataContext.Jokes.Where(x => x.Id == id).ToListAsync();
+            var foundJoke = _dataContext.Jokes.Where(x => x.Id == id).ToList();
             if (foundJoke == null)
             {
                 return;
@@ -61,13 +61,13 @@ namespace loadsheddingapp.Repository
             {
                 joke.IsApproved = true;
             }
-            await _dataContext.SaveChangesAsync();
+             _dataContext.SaveChanges();
         }
 
-        public async void UnapproveJoke(int id)
+        public  void UnapproveJoke(int id)
         {
 
-            var foundJoke = await _dataContext.Jokes.Where(x => x.Id == id).ToListAsync();
+            var foundJoke =  _dataContext.Jokes.Where(x => x.Id == id).ToList();
             if (foundJoke == null)
             {
                 return;
@@ -76,8 +76,7 @@ namespace loadsheddingapp.Repository
             {
                 _dataContext.Jokes.Remove(joke);
             }
-
-            await _dataContext.SaveChangesAsync();
+             _dataContext.SaveChanges();
         }
     }
 }

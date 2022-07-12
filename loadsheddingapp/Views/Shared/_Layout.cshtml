@@ -32,10 +32,11 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
-                        @*@if (User.IsInRole("admin")) {*@
+                        @if (User.IsInRole("admin")) {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Admin">Approve Jokes</a>
                             </li>
+                        }
                         
 
                         <li class="nav-item">
