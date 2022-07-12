@@ -22,6 +22,12 @@ namespace loadsheddingapp.Controllers
             return View();
         }
 
+        public IActionResult Verify()
+        {
+
+            return View();
+        }
+
         public async Task Logout()
         {
            
