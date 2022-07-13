@@ -42,10 +42,12 @@ namespace loadsheddingapp.Controllers
             if (rbAcceptance.Equals("Accepted"))
             {
                 _repository.ApproveJoke(jokeid);
+                _logger.LogInformation(String.format("Joke {0} approved", jokeid));
             }
             else
             {
                 _repository.UnapproveJoke(jokeid);
+                _logger.LogInformation(String.format("Joke {0} unapproved", jokeid));
             }
 
             return View("Admin", _repository.GetAllUnApproved().Result);
@@ -65,6 +67,8 @@ namespace loadsheddingapp.Controllers
 
             Task<Joke> task = _repository.AddAsync(new Joke(userName, joke, DateTime.Now, false));
             task.Wait();
+
+            _logger.LogInformation("Joke added");
 
             return RedirectToAction("Index");
         }
