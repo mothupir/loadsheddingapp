@@ -26,6 +26,13 @@ namespace loadsheddingapp.Controllers
         [Authorize]
         public IActionResult CreateJoke()
         {
+            if (User.IsInRole("admin"))
+            {
+
+            
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             return View();
         }
 
@@ -41,10 +48,12 @@ namespace loadsheddingapp.Controllers
         {
             if (rbAcceptance.Equals("Accepted"))
             {
+
                 _repository.ApproveJoke(jokeid);
             }
             else
             {
+             
                 _repository.UnapproveJoke(jokeid);
             }
 
@@ -55,9 +64,12 @@ namespace loadsheddingapp.Controllers
         [Authorize]
         public IActionResult CreateJoke(string joke)
         {
-         
-
             var userName = User.Claims.FirstOrDefault(c => c.Type == "http://username/name")?.Value;
+
+            if (User.IsInRole("admin")) {
+                return RedirectToAction("AccessDenied", "Account");
+            }
+          
 
             if (userName == null || String.IsNullOrEmpty(joke)) {
                 return RedirectToAction("Error");
@@ -65,7 +77,6 @@ namespace loadsheddingapp.Controllers
 
             Task<Joke> task = _repository.AddAsync(new Joke(userName, joke, DateTime.Now, false));
             task.Wait();
-
             return RedirectToAction("Index");
         }
 
@@ -74,6 +85,7 @@ namespace loadsheddingapp.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

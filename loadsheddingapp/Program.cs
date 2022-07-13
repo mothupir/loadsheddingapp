@@ -4,6 +4,7 @@ using loadsheddingapp.Repository;
 using Microsoft.EntityFrameworkCore;
 using Auth0.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +15,20 @@ builder.Services.AddScoped<IJokeRepository, JokeRepository>();
 
 builder.Services.AddDbContext<DataContext>();
 
+/*
+SecretsManagerService service = new SecretsManagerService();
+
+var cert_secret = service.getSecret(builder.Configuration["CertSecretID"]);
 
 
+builder.WebHost.UseKestrel().ConfigureKestrel((context, serverOptions) =>
+{
+    serverOptions.Listen(IPAddress.Any, 443, listenOptions =>
+    {
+        listenOptions.UseHttps("/home/ubuntu/domain.com.pfx", cert_secret);
+    });
+});
+*/
 
 
 
@@ -56,17 +69,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-/*
-app.MapControllerRoute(
-    name: "Login",
-    pattern: "{controller=Login}/{action=Index}/{id?}");
-
-
-
-app.MapControllerRoute(
-    name: "Login",
-    pattern: "{controller=Logout}/{action=Index}/{id?}");
-*/
 
 
 app.MapControllerRoute(
