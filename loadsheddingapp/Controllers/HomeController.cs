@@ -26,6 +26,11 @@ namespace loadsheddingapp.Controllers
         [Authorize]
         public IActionResult CreateJoke()
         {
+            if (User.IsInRole("admin"))
+            {
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
             return View();
         }
 
@@ -55,8 +60,10 @@ namespace loadsheddingapp.Controllers
         [Authorize]
         public IActionResult CreateJoke(string joke)
         {
-         
 
+            if (User.IsInRole("admin")) {
+                return RedirectToAction("AccessDenied", "Account");
+            }
             var userName = User.Claims.FirstOrDefault(c => c.Type == "http://username/name")?.Value;
 
             if (userName == null || String.IsNullOrEmpty(joke)) {

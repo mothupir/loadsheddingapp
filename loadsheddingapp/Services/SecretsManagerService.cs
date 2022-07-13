@@ -21,6 +21,16 @@ namespace loadsheddingapp.Services
 
         }
 
+
+        public String getSecret(string secretID)
+        {
+            var response = this.cache.GetSecretString(secretID).Result;
+            JObject jObject = JObject.Parse(response);
+            return jObject["cert_key"].ToObject<string>();
+        }
+
+
+
         public DbSecretModel getDatabaseCredential(string secretID)
         {
             try
