@@ -9,6 +9,9 @@ and users have to enter and OTP when they login. Once users have authenticated, 
 newly created jokes only become visible after they have been approved by an administrator.
 Designated admin users can navigate to the approve jokes page where they can accept/reject jokes. See image below for more information.
 
+
+## Very important
+If you require an admin user for testing purposes, please contact on the team members for assistance
  
 <!-- GETTING STARTED -->
 ## Deployment
@@ -31,10 +34,21 @@ The application is hosted on an AWS EC2 instance. See image below for more detai
 ## Deployment
 The application is hosted on an AWS EC2 instance. See image below for more details
 
+ - the hosted application can be found at the following url : https://www.loadshedding-jokes.online/
+
+
  <img src="aws-arc.jpeg" alt="ERD" width="1000" height="500">
 
 
-#### Running the scripts in Windows command line:
+#### Running the application locally:
+
+To run the application locally, the Auth0 domain and client id must be modified to point to the Auth0 dev account,please see new values below
+
+"Domain": "dev-3lgejmsa.us.auth0.com",
+"ClientId": "Y3zB6xGFNw9sQrl7oV8JqrapzB5Qladm"
+
+
+The application can then be run by executing dotnet run
 
 <!-- MEET THE TEAM -->
 ## Development Team
