@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - loadsheddingapp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/loadsheddingapp.styles.css" asp-append-version="true" />
 </head>
 <body>
@@ -19,22 +20,25 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                            @if (User.Identity.IsAuthenticated)
-                                {
-                                   <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                                   </li>
-                                } else {
-                                   <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                                   </li>
-                                }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("admin")) {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Admin">Approve Jokes</a>
+                            </li>
+                        }
+                        
 
-                                @if (User.IsInRole("admin")) {
-                                 <li class="nav-item">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Approve Jokes</a>
-                                 </li>
-                                }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -45,9 +49,34 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <div class="row">
+            <div class="col-2">
+                <div class="holder">
+                    <div class="candle">
+                        <div class="blinking-glow"></div>
+                        <div class="thread"></div>
+                        <div class="glow"></div>
+                        <div class="flame"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+            <div class="col-2">
+                <div class="holder">
+                    <div class="candle">
+                        <div class="blinking-glow"></div>
+                        <div class="thread"></div>
+                        <div class="glow"></div>
+                        <div class="flame"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <footer class="border-top footer text-muted">

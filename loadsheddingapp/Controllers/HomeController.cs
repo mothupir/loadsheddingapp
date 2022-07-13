@@ -29,6 +29,28 @@ namespace loadsheddingapp.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
+        public IActionResult Admin()
+        {
+            return View(_repository.GetAllUnApproved().Result);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public IActionResult AdminDuties(int jokeid, string rbAcceptance)
+        {
+            if (rbAcceptance.Equals("Accepted"))
+            {
+                _repository.ApproveJoke(jokeid);
+            }
+            else
+            {
+                _repository.UnapproveJoke(jokeid);
+            }
+
+            return View("Admin", _repository.GetAllUnApproved().Result);
+        }
+
         [HttpPost]
         [Authorize]
         public IActionResult CreateJoke(string joke)
