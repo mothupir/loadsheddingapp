@@ -4,7 +4,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 A simple web application which allows users to view and post jokes.Any user who visits the website is able to view the jokes. To post jokes users will have to be authenticated. Authentication is done through Auth0 provider.
-Users have the option to sign themselves up and confirm their email address. Multifacotr authntication is enforced
+Users have the option to sign themselves up and confirm their email address.Please not that BBD emails fail to be verified (We are not sure why). Multifacotr authntication is enforced
 and users have to enter and OTP when they login. Once users have authenticated, they are able to created jokes, please note that
 newly created jokes only become visible after they have been approved by an administrator.
 Designated admin users can navigate to the approve jokes page where they can accept/reject jokes. See image below for more information.

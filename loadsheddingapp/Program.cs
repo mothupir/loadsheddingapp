@@ -15,20 +15,7 @@ builder.Services.AddScoped<IJokeRepository, JokeRepository>();
 
 builder.Services.AddDbContext<DataContext>();
 
-/*
-SecretsManagerService service = new SecretsManagerService();
 
-var cert_secret = service.getSecret(builder.Configuration["CertSecretID"]);
-
-
-builder.WebHost.UseKestrel().ConfigureKestrel((context, serverOptions) =>
-{
-    serverOptions.Listen(IPAddress.Any, 443, listenOptions =>
-    {
-        listenOptions.UseHttps("/home/ubuntu/domain.com.pfx", cert_secret);
-    });
-});
-*/
 
 
 
